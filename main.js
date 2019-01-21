@@ -1,4 +1,5 @@
 const electron = require("electron");
+const path = require("path");
 
 const { app, BrowserWindow, Menu } = electron;
 
@@ -79,16 +80,12 @@ let mainWindow;
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on("ready", function() {
-  mainWindow = new BrowserWindow(
-    data && data.bounds
-      ? data.bounds
-      : {
-          width: 1024,
-          height: 768,
-          icon: path.join(__dirname, "assets/icons/png/64x64.png"),
-          frame: false
-        }
-  );
+  mainWindow = new BrowserWindow({
+    width: 1024,
+    height: 768,
+    icon: path.join(__dirname, "assets/icons/png/64x64.png"),
+    frame: false
+  });
   mainWindow.loadURL("https://xdai.io");
   // Display Dev Tools by default
   //mainWindow.openDevTools();
@@ -98,8 +95,5 @@ app.on("ready", function() {
 
 // Quit when all windows are closed.
 app.on("window-all-closed", function() {
-  var data = {
-    bounds: mainWindow.getBounds()
-  };
   app.quit();
 });
